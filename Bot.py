@@ -148,25 +148,24 @@ try:
 except Exception as e:
     print(f"Error filling in the fields: {e}")
 
-#Manejo de la nueva ventana y extraccion de precios de paquetes
 try:
 
-    print("Esperando que se abra la nueva ventana...")
+    print("Waiting for the new window to open")
     WebDriverWait(driver, 10).until(lambda d: len(d.window_handles) > 1)
 
     ventanas = driver.window_handles
-    print(f"Ventanas abiertas: {len(ventanas)}")
+    print(f"windows open: {len(ventanas)}")
 
     driver.switch_to.window(ventanas[-1])
-    print("Se cambió a la ventana de resultados.")
+    print("Switch to results window")
 
     WebDriverWait(driver, 20).until(
         EC.presence_of_all_elements_located((By.CSS_SELECTOR, "p.totalpackprice.small-text-center.price-extra.money"))
     )
-    print("Los precios específicos de los paquetes se han cargado correctamente.")
+    print("Specific package prices have been uploaded successfully")
 
     precios_paquetes = driver.find_elements(By.CSS_SELECTOR, "p.totalpackprice.small-text-center.price-extra.money")
-    print("Precios de los paquetes encontrados:")
+    print("Prices of the packages found:")
 
     for precio in precios_paquetes:
 
