@@ -64,7 +64,7 @@ try:
 
     ActionChains(driver).key_down(Keys.CONTROL).send_keys('v').key_up(Keys.CONTROL).perform()
     ActionChains(driver).send_keys(Keys.ENTER).perform()
-    print("Pasted text  y enter pressed in the city of origin")
+    print("Pasted text and click on the origin city")
 
     time.sleep(3) 
 
@@ -79,15 +79,15 @@ try:
     time.sleep(3) 
 
     ActionChains(driver).key_down(Keys.CONTROL).send_keys('v').key_up(Keys.CONTROL).perform()
-    print("Texto pegado en el campo de destino")
+    print("Pasted text and click on the destination city ")
 
-    time.sleep(3) #Antes de dar click al areopuerto de Cancun
+    time.sleep(3)
 
     xpath_aeropuerto = "//li[@item-name='Cancún, Quintana Roo (CUN-Aeropuerto Internacional de Cancún)']"
     aeropuerto_element = driver.find_element(By.XPATH, xpath_aeropuerto)
     aeropuerto_element.click()
 
-    time.sleep(1) #Antes de poner la fecha de ida
+    time.sleep(3) 
 
     fecha_salida_js = """
         let fechaSalida = document.getElementById('DateFrom_netactica_airhotel');
@@ -95,9 +95,9 @@ try:
         fechaSalida.dispatchEvent(new Event('change', { bubbles: true }));
     """
     driver.execute_script(fecha_salida_js)
-    print("Fecha de salida seleccionada: 26-12-2024")
+    print("Departure date: 26-12-2024")
 
-    time.sleep(3) #Antes de poner la fecha de regreso
+    time.sleep(3)
 
     fecha_regreso_js = """
         let fechaRegreso = document.getElementById('DateTo_netactica_airhotel');
@@ -105,46 +105,48 @@ try:
         fechaRegreso.dispatchEvent(new Event('change', { bubbles: true }));
     """
     driver.execute_script(fecha_regreso_js)
-    print("Fecha de regreso seleccionada: 05-01-2025")
+    print("Return date: 05-01-2025")
 
-    # **Click en el botón "Agregar Habitación"**
+    time.sleep(5)
     boton_agregar_habitacion_js = """
         let boton = document.getElementById('btbAddRoomtwopaquetes');
         boton.click();
     """
-    driver.execute_script(boton_agregar_habitacion_js)
-    print("Se agregó una segunda habitación.")
 
-    # **Configurar 2 adultos en la primera habitación**
+    time.sleep(5)
+    driver.execute_script(boton_agregar_habitacion_js)
+    print("A second room was added")
+
+    time.sleep(5)
     habitacion_1_js = """
         let habitacion1 = document.querySelector('#ddlAirHotelNumberAdults');
         habitacion1.value = '2';
         habitacion1.dispatchEvent(new Event('change', { bubbles: true }));
     """
+    
+    time.sleep(3)
     driver.execute_script(habitacion_1_js)
-    print("Primera habitación configurada con 2 adultos.")
+    print("First room configured for 2 people")
 
-    # **Configurar 3 adultos en la segunda habitación**
     habitacion_2_js = """
         let habitacion2 = document.getElementById('ddlAirHotelNumberAdultsDos');
         habitacion2.value = '3';
         habitacion2.dispatchEvent(new Event('change', { bubbles: true }));
     """
     driver.execute_script(habitacion_2_js)
-    print("Segunda habitación configurada con 3 adultos.")
-    time.sleep(3)
+    print("Second room configured for 3 people")
+    time.sleep(5)
 
 
-    # **Click al boton de buscar**
     boton_buscar_js = """
     let botonBuscar = document.getElementById('sbm_netactica_airhotel');
     botonBuscar.click();
     """
     driver.execute_script(boton_buscar_js)
-    print("Click en el botón de buscar realizado")
+    print("Click on the search button")
 
 except Exception as e:
-    print(f"Error llenando los campos: {e}")
+    print(f"Error filling in the fields: {e}")
 
 #Manejo de la nueva ventana y extraccion de precios de paquetes
 try:
