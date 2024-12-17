@@ -154,7 +154,6 @@ try:
     WebDriverWait(driver, 10).until(lambda d: len(d.window_handles) > 1)
 
     ventanas = driver.window_handles
-    print(f"windows open: {len(ventanas)}")
 
     driver.switch_to.window(ventanas[-1])
     print("Switch to results window")
@@ -179,7 +178,7 @@ except Exception as e:
 
 time.sleep(3)    
 
-#Parte de las opciones avanzadas y la aerolinea
+
 try:
 
     aerolinea = "avianca (AV)"
@@ -189,7 +188,7 @@ try:
     botonOpcionesAvanzadas.click();
     """
     driver.execute_script(opciones_avanzadas_js)
-    print("Click en el botón de 'Opciones Avanzadas' realizado.")
+    print("Click on the 'Advanced Options' button")
 
     time.sleep(3)  
 
@@ -198,7 +197,7 @@ try:
     campoAero.click();
     """
     driver.execute_script(campo_aerolinea_js)
-    print("Click en el campo de aerolínea realizado.")
+    print("Click on the airline field")
 
     time.sleep(3)  
 
@@ -208,7 +207,7 @@ try:
     campoAero.dispatchEvent(new Event('input', {{ bubbles: true }}));  // Simular entrada
     """
     driver.execute_script(pegar_aerolinea_js)
-    print(f"Valor '{aerolinea}' ingresado en el campo de aerolínea y Enter presionado.")
+    print(f"Value '{aerolinea}' entered in the airline field and Enter pressed.")
 
     time.sleep(2) 
 
@@ -217,21 +216,21 @@ try:
     if (botonBuscar) botonBuscar.click();
     """
     driver.execute_script(click_boton_js)
-    print("Click realizado en el botón de buscar.")
+    print("Click on the search button")
 
 except Exception as e:
-    print(f"Error durante la interacción con 'Opciones Avanzadas': {e}")
+    print(f"Error during interaction with 'Advanced Options': {e}")
 
-#Segunda extraccion de precios en base a la aerolinea
+
 try:
 
     WebDriverWait(driver, 20).until(
         EC.presence_of_all_elements_located((By.CSS_SELECTOR, "p.totalpackprice.small-text-center.price-extra.money"))
     )
-    print("Los precios específicos de los paquetes se han cargado correctamente.")
+    print("Specific package prices have been uploaded successfully")
 
     precios_paquetes = driver.find_elements(By.CSS_SELECTOR, "p.totalpackprice.small-text-center.price-extra.money")
-    print("Precios de los paquetes encontrados segun la aerolinea:")
+    print("Package prices found according to the airline:")
 
     for precio in precios_paquetes:
 
@@ -243,13 +242,13 @@ try:
 except Exception as e:
     print(f"Error: {e}")
 
-#Click al numero de whatsApp de la agencia
+
 click_whatsapp_js = """
 let botonWhatsApp = document.querySelector('a[href*="https://api.whatsapp.com/send"]');
 if (botonWhatsApp) botonWhatsApp.click();
 """
 driver.execute_script(click_whatsapp_js)
-print("Click realizado en el botón de WhatsApp.")
+print("Click on the WhatsApp button")
 
 time.sleep(5)
 driver.quit()
